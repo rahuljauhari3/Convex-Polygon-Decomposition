@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Convex Decomposition of a Polygon</title>
+    <style>
+      /* Define styles for the report */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #FDF5E6;
+        
+        
+      }
+
+      h1 {
+        text-align: center;
+        color: #008080;
+      }
+
+      h2 {
+        color: #2e8b57;
+      }
+
+      p {
+        margin-bottom: 10px;
+        color: #555;
+      }
+
+      table {
+        border-collapse: collapse;
+        margin: auto;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        padding: 5px;
+      }
+
+      ul {
+        list-style-type: square;
+      }
+
+      a {
+        color: #2e8b57;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+</head>
+
+<body>
+    <h1>Rectangle</h1>
+    <p>
+        <b><u>Code</u></b>
+        <br>vector<float> rectangele(const vector<Point> convex_polygon)
+        <br>
+        <br>{
+            <br>         vector<float> ans;
+                <br>float min_x = convex_polygon[0].x;
+                <br>float min_y = convex_polygon[0].y;
+                <br>float max_x = convex_polygon[0].x;
+                <br>float max_y = convex_polygon[0].y;
+                <br>for (int i = 1; i < convex_polygon.size(); i++)
+                <br>{
+                    <br>if (convex_polygon[i].x < min_x)
+                        <br>min_x = convex_polygon[i].x;
+                        <br>if (convex_polygon[i].x > max_x)
+                    <br>max_x = convex_polygon[i].x;
+                        <br>if (convex_polygon[i].y < min_y)
+                    <br>min_y = convex_polygon[i].y;
+                        <br>if (convex_polygon[i].y > max_y)
+                    <br>max_y = convex_polygon[i].y;
+                        <br>}
+                <br>ans.push_back(min_x);
+                <br>         ans.push_back(min_y);
+                <br>ans.push_back(max_x);
+                <br>ans.push_back(max_y);
+                <br>return ans;
+                <br>}
+    </p>
+    <p>
+        <b><u>Explanation</u></b>
+        <p>This code is used to calculate the angle formed by three points. It takes three points as arguments: p1, p2, and p3, and returns a boolean value. It does this by first calculating the vectors from p1 to p2 and from p3 to p2. It then takes the cross product of these two vectors and checks if it is greater than or equal to 0. If it is, it returns true, indicating that the angle formed is obtuse or right. If the cross product is not greater than or equal to 0, it returns false, indicating that the angle formed is acute.</p>
+    </p>
+</body>
+
+</html>

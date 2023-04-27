@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Convex Decomposition of a Polygon</title>
+    <style>
+      /* Define styles for the report */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #FDF5E6;
+        background: linear-gradient( #FDF5E6, beige);
+        
+      }
+
+      h1 {
+        text-align: center;
+        color: #008080;
+      }
+
+      h2 {
+        color: #2e8b57;
+      }
+
+      p {
+        margin-bottom: 10px;
+        color: #555;
+      }
+
+      table {
+        border-collapse: collapse;
+        margin: auto;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        padding: 5px;
+      }
+
+      ul {
+        list-style-type: square;
+      }
+
+      a {
+        color: #2e8b57;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+</head>
+
+<body><br>
+    <br><h1>Decompose</h1>
+    <p>
+        <b><u>Code</u></b>
+        vector<vector<Point> > Decompose(vector<Point> &vertices)
+            <br>{
+                <br>vector<vector<Point> > result;
+                <br>vector<Point> convex_polygon, notch_list;
+                <br>// L0 fv1g; m 1.
+                <br>convex_polygon.push_back(vertices[0]);
+                <br>int q = 1;
+                <br>int vertices_size = vertices.size();
+                <br>Point p2,p1;
+                <br>int m = 0;
+                <br>int flag= 0,f=0;
+            <br>
+                <br>while ( vertices.size() > 3)
+                <br>{
+                <br>    q=1;
+                <br>    m++;
+                <br>    check_if_same(convex_polygon,vertices);
+                <br>    // p1 last of convex_polygon and p2 next in vertices
+                <br>    if(flag == 0)
+                <br>    {
+                <br>        p1 = convex_polygon[0];
+                <br>        p2 = next(vertices, p1);
+                <br>        convex_polygon.push_back(p2);
+                <br>        convex_polygon = remove_duplicates(convex_polygon);
+                <br>    }
+                <br>    Point p3 = next(vertices, vertices[q]); // check 3.2
+                <br>    while (angle(vertices[(q - 1) % vertices.size()], vertices[q], vertices[(q + 1) % vertices.size()])  && angle(vertices[q], vertices[(q + 1) % vertices.size()], p1)  && angle(vertices[(q + 1) % vertices.size()], p1, p2) )
+                <br>    {
+                <br>        convex_polygon.push_back(vertices[(q+1) % vertices.size()]);
+                <br>        cout<<"as "<<convex_polygon[convex_polygon.size()-1].x<<" "<<convex_polygon[convex_polygon.size()-1].y<<endl;
+                <br>        convex_polygon = remove_duplicates(convex_polygon);
+                <br>        q++;
+                <br>        p3 = next(vertices, vertices[q]); // check 3.3.1
+                <br>        // break;
+                <br>    }
+            <br>
+                <br>    if (convex_polygon.size() == vertices.size())
+                <br>    {
+                <br>        result.push_back(convex_polygon);
+                <br>        cout<<endl;
+                <br>        for(int i =0 ;i<convex_polygon.size();i++)
+                <br>        {
+                <br>            cout<<"asd "<<convex_polygon[i].x<<" "<<convex_polygon[i].y<<" "<<endl;
+                <br>        }
+                <br>        cout<<endl;
+                <br>        return result;
+                <br>    }
+                <br>    if(convex_polygon.size()==2)
+                <br>    {
+                <br>        p1=next(vertices, p1);
+                <br>        p2= next(vertices, p1);
+                <br>        convex_polygon.clear();
+                <br>        convex_polygon.push_back(p1);
+                <br>        convex_polygon.push_back(p2);f=-1;
+                <br>        Point temporary = vertices[0];
+                <br>        vertices.erase(vertices.begin());
+                <br>        vertices.push_back(temporary);
+                <br>    }
+                <br>    else f=0;   
+                <br>    if(f==0){
+                <br>        if (convex_polygon.size() != vertices.size()&&convex_polygon.size()>2) // check 3.4.1
+                <br>        {
+                <br>            for (int i = q-1; i < vertices.size(); i++)
+                <br>            {
+                <br>                if (notch(vertices[i], vertices[(i + 1) % vertices.size()], vertices[(i + 2) % vertices.size()]))
+                <br>                {
+                <br>                    // vector<float> temp = rectangele(convex_polygon);
+                <br>                    // if (vertices[i].x >= temp[0] && vertices[i].x <= temp[2] && vertices[i].y >= temp[1] && vertices[i].y <= temp[3])
+                <br>                        {
+                <br>                            notch_list.push_back(vertices[(i + 1) % vertices.size()]);
+                <br>                        }
+                <br>                }
+                <br>            }
+                <br>            vector<float> temp = rectangele(convex_polygon);
+                <br>            for (int i = 0; i < notch_list.size(); i++)
+                <br>            {
+                <br>                if (notch_list[i].x < temp[0] )
+                <br>                {
+                <br>                    notch_list.erase(notch_list.begin() + i);
+                <br>                    i--;
+                <br>                }
+                <br>                else if ( notch_list[i].x > temp[2] )
+                <br>                {
+                <br>                    notch_list.erase(notch_list.begin() + i);
+                <br>                    i--;
+                <br>                }
+                <br>                else if (notch_list[i].y < temp[1])
+                <br>                {
+                <br>                    notch_list.erase(notch_list.begin() + i);
+                <br>                    i--;
+                <br>                }
+                <br>                else if (notch_list[i].y > temp[3])
+                <br>                {
+                <br>                    notch_list.erase(notch_list.begin() + i);
+                <br>                    i--;
+                <br>                }
+                <br>            }
+                <br>            if (notch_list.size() > 0)
+                <br>            {
+                <br>                // convex_polygon notch_list
+                <br>                Point vert = convex_polygon[1];
+                <br>                int side_of_convex = side(convex_polygon[0], convex_polygon[convex_polygon.size() - 1], vert);
+            <br>
+                <br>                for (int i = 0; i < notch_list.size(); i++)
+                <br>                {
+                <br>                    if (side_of_convex != side(convex_polygon[0], convex_polygon[convex_polygon.size() - 1], notch_list[i]))
+                <br>                    {
+            <br>
+                <br>                        notch_list.erase(notch_list.begin() + i); // check
+                <br>                        i--;
+                <br>                    }
+                <br>                }
+                <br>                for (int i = 0; i < notch_list.size(); i++)
+                <br>                {
+                <br>                    side_of_convex = side(convex_polygon[0], notch_list[i], vert);
+                <br>                    for (int j = 1; j < convex_polygon.size(); j++)
+                <br>                    {
+                <br>                        if (side_of_convex != side(convex_polygon[0], notch_list[i], convex_polygon[j]))
+                <br>                        {
+                <br>                            convex_polygon.erase(convex_polygon.begin() + j); // check
+                <br>                            // break;
+                <br>                            j--;
+                <br>                        }
+                <br>                    }
+                <br>                }
+                <br>                
+                <br>            }
+                <br>        }
+                <br>    
+                <br>    
+                <br>        if (convex_polygon[convex_polygon.size() - 1].x != p2.x || convex_polygon[convex_polygon.size() - 1].y != p2.y)
+                <br>        {
+                <br>            if(convex_polygon.size()>2)
+                <br>            {
+                <br>                result.push_back(convex_polygon);
+                <br>            }
+                <br>            Point first = convex_polygon[0], last = convex_polygon[convex_polygon.size() - 1];
+                <br>            // int size_convex_polygon = convex_polygon.size();
+                <br>            // remove convex polygon from vertcies
+                <br>            
+                <br>            for (int i = 0; i < convex_polygon.size(); i++)
+                <br>            {
+                <br>                for (int j = 0; j < vertices.size(); j++)
+                <br>                {
+                <br>                    if (convex_polygon[i].x == vertices[j].x && convex_polygon[i].y == vertices[j].y)
+                <br>                    {
+                <br>                        vertices.erase(vertices.begin() + j);q--;
+                <br>                        i=0;
+                <br>                        break;
+                <br>                    }
+                <br>                }
+                <br>            }
+                <br>            vertices.insert(vertices.begin(), last);q++;
+                <br>            vertices.insert(vertices.begin(), first);q++;
+                <br>            vertices = remove_duplicates(vertices);
+                <br>            cout<<endl;
+                <br>            for (int i=0;i<vertices.size();i++)
+                <br>            {
+                <br>                cout<<"a"<<vertices[i].x<<" "<<vertices[i].y<<endl;
+                <br>            }
+            <br>
+                <br>        convex_polygon.clear();
+                <br>        convex_polygon.push_back(first);
+                <br>        convex_polygon = remove_duplicates(convex_polygon);
+                <br>        vertices_size = vertices.size();
+                <br>        notch_list.clear();
+                <br>        }
+                <br>        else {Point temp = vertices[0];
+                <br>            vertices.erase(vertices.begin());
+                <br>            vertices.push_back(temp);
+                <br>            p1 = p2;
+                <br>            p2= next(vertices,p1);  
+                <br>            convex_polygon = remove_duplicates(convex_polygon);//error aasaktha hai same vertice wala left shift
+                <br>        }
+                <br>    }
+                <br>}
+                <br>if(vertices.size()==3)
+                <br>    {result.push_back(vertices);}
+                <br>
+                <br>    return result;
+                <br>}
+    </p><br>
+    <p>
+        <b><u>Explanation</u></b>
+    <p>This code is implementing a polygon partitioning algorithm. The algorithm takes a polygon with a set of vertices, and then finds the convex polygon from the set of vertices. It then splits the polygon into convex polygons by finding notches. 
+    </p>
+</body>
+
+</html>

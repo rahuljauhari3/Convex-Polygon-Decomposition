@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Convex Decomposition of a Polygon</title>
+    <style>
+      /* Define styles for the report */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #FDF5E6;
+        background: linear-gradient( #FDF5E6, beige);
+        
+      }
+
+      h1 {
+        text-align: center;
+        color: #008080;
+      }
+
+      h2 {
+        color: #2e8b57;
+      }
+
+      p {
+        margin-bottom: 10px;
+        color: #555;
+      }
+
+      table {
+        border-collapse: collapse;
+        margin: auto;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        padding: 5px;
+      }
+
+      ul {
+        list-style-type: square;
+      }
+
+      a {
+        color: #2e8b57;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Convex Decomposition of a Polygon</h1>
+    <p>A polygon is a closed shape made up of straight line segments connected end-to-end. Convex decomposition is the process of breaking down a polygon into smaller convex polygons.</p>
+    <h2>What is a Convex Polygon?</h2>
+    <p>A convex polygon is a polygon in which all interior angles are less than or equal to 180 degrees. In other words, the polygon does not have any "dents" or concave angles.</p>
+    <h2>Why Perform Convex Decomposition?</h2>
+    <p>Convex decomposition can be useful for various purposes, including:</p>
+    <ul>
+      <li>Simplifying a complex polygon into smaller, more manageable shapes</li>
+      <li>Creating collision detection algorithms for video games and simulations</li>
+      <li>Optimizing rendering performance in computer graphics</li>
+    </ul>
+    <h2>How to Perform Convex Decomposition</h2>
+    <p>This report shows the convex decomposition of a polygon. The polygon is defined by a set of vertices. The convex decomposition is computed in accordence of the following <a href="https://www.sciencedirect.com/science/article/pii/S0377221799000338">research paper.</a></p>
+    <p>Data structures used in the implementation are:</p>
+    <ul>
+      <li>DCEL (Doubly Connected Edge List)</li>
+      <li>Vector</li>
+    </ul>
+    <!-- points -->
+    <p>
+      <b><u>Input</u>:</b>
+    </p>
+    <p>The input is a polygon defined by a set of vertices. The vertices are defined in a clockwise order.</p>
+    <p>
+      <b><u>Output:</u></b>
+    </p>
+    <p>The output is a set of decomposed convex polygons in the clockwise order.</p>
+    <p>
+      <b><u>Functions used in our code:</u></b>
+      <br> 1. Bool Angles </br>
+      <br> 2. Bool Notch</br>
+      <br> 3. Int Side</br>
+      <br> 4. Vector Rectangle</br>
+      <br> 5. Vector of Vector Decompose</br>
+    </p>
+    <p>
+      <b><u>Explanation</u></b>
+    </p>
+    <p>
+        <b><a href="http://127.0.0.1:5500/Report_HTML_pages/angles.html">1. Angles:</a></b>
+        <br><br>It is used to check whether the interior angle of a given point is less than 180 degrees or not.
+        <br><br>Inputs: Point A, Point B, Point C.
+        <br><br>Output: Boolean value. True if the angle at <u>Point B</u> is less than 180 degrees and false otherwise.
+    </p>
+    <p>
+        <b><a href="http://127.0.0.1:5500/Report_HTML_pages/notch.html">2. Notch:</a></b>
+        <br><br>It is used to check whether a given point is a notch or not. (Note that a notch is a point which has
+        interior angle greater than 180 degrees.)
+        <br><br>Inputs: Point A, Point B, Point C.
+        <br><br>Output: Boolean value. True if the point <u>Point B</u> is a notch, False otherwise.
+    </p>
+    <p>
+        <b><a href="http://127.0.0.1:5500/Report_HTML_pages/side.html">3. Side:</a></b>
+        <br><br>It is used to check whether a given point is on the left side or right side of a line segment.
+        <br><br>Inputs: Point A, Point B, Point C.
+        <br><br>Output: Integer value. 1 if the point <u>Point C</u> is on the left side of the line segment AB, -1 if
+        the
+        point <u>Point C</u> is on the right side of the line segment AB, 0 if the point <u>Point C</u> is on the line
+        segment AB.
+    </p>
+    <p>
+        <b><a href="http://127.0.0.1:5500/Report_HTML_pages/rectangle.html">4.Rectangle</a></b>
+        <br><br>This function is used to check if the notches found in the given polygon lie inside the smallest
+        possible rectangle ( parallel to the axes) enclosing the smaller convex polygon
+        <br><br>Inputs: The convex polygon obtained after decomposition in nth iteration
+        <br><br>Output: Coordinates of the smallest possible rectangle that encloses the given polygon
+    </p>
+    <p>
+        <b><a href="http://127.0.0.1:5500/Report_HTML_pages/decompose.html">5. Decompose</a></b>
+    <p>This code is implementing a polygon partitioning algorithm. The algorithm takes a polygon with a set of vertices,
+        and then finds the convex polygon from the set of vertices. It then splits the polygon into convex polygons by
+        finding notches.
+    </p>
+    <p>
+        Input: Edges
+        Output: Decomposed Convex Polygon
+    </p>
+
+    </p>
+    <p>
+        <h2><b>Points:</b></h2>
+    </p>
+    <table>
+        <tr>
+            <th>Vertex</th>
+            <th>X</th>
+            <th>Y</th>
+        </tr>
+        <!-- <tr>15
+302 224
+275 367
+142 309
+79 631
+262 697
+126 849
+173 862
+248 793
+632 828
+562 596
+877 630
+821 393
+884 315
+895 59
+608 360 -->
+            <td>0</td>
+            <td>302</td>
+            <td>224</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>275</td>
+            <td>367</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>142</td>
+            <td>309</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>79</td>
+            <td>631</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>262</td>
+            <td>697</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>126</td>
+            <td>849</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>173</td>
+            <td>862</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>248</td>
+            <td>793</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>632</td>
+            <td>828</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>562</td>
+            <td>596</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>877</td>
+            <td>630</td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td>821</td>
+            <td>393</td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>884</td>
+            <td>315</td>
+        </tr>
+        <tr>
+            <td>13</td>
+            <td>895</td>
+            <td>59</td>
+        </tr>
+        <tr>
+            <td>14</td>
+            <td>608</td>
+            <td>360</td>
+        </tr>
+    </table>
+
+    <p>
+        <h2><b>Plot of Polygon and its Decomposition</b></h2>
+    </p>
+    <div>
+        <center><img src="concave_polygon.jpeg" alt="concave_polygon" width="400" height="400" class="center">
+            <img src="decomposition.jpeg" alt="decomposition" width="400" height="400" class="center">
+        </center>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div>
+        <center><img src="Fig1.png" alt="concave_polygon" width="400" height="400" class="center">
+            <img src="Fig1d.png" alt="decomposition" width="400" height="400" class="center">
+        </center>
+    </div>
+    <br>
+    <br>
+    <div>
+        <center><img src="Fig2.png" alt="concave_polygon" width="400" height="400" class="center">
+            <img src="Fig2d.png" alt="decomposition" width="400" height="400" class="center">
+        </center>
+    </div>
+    <br>
+    <br>
+    <div>
+        <center><img src="Fig3.png" alt="concave_polygon" width="400" height="400" class="center">
+            <img src="Fig3d.png" alt="decomposition" width="400" height="400" class="center">
+        </center>
+    </div>
+    <br>
+    <br>
+    <p>
+        <h2><b>Time Plot:</b></h2>
+    </p>
+    <div>
+        <center><img src="Timeplot.png" alt="decomposition" width="400" height="400" class="center"></center>
+    </div>
+
+
+    <p>
+        <h2><b>Time complexity</b></h2>
+    <table>
+        <tr>
+            <th>Number of vertices</th>
+            <th>Time Taken in microsecond</th>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>6</td>
+        </tr>
+        <tr>
+            <td>40</td>
+            <td>159</td>
+        </tr>
+        <tr>
+            <td>100</td>
+            <td>1218</td>
+        </tr>
+        <tr>
+            <td>150</td>
+            <td>4596</td>
+        </tr>
+        <tr>
+            <td>200</td>
+            <td>7023</td>
+        </tr>
+        <tr>
+            <td>300</td>
+            <td>17646</td>
+        </tr>
+        <tr>
+            <td>400</td>
+            <td>39702</td>
+        </tr>
+        <tr>
+            <td>500</td>
+            <td>67797</td>
+        </tr>
+    </table>
+    </p>
+    <p>
+        <h2><b>Conclusion</b></h2>
+    <p>
+        In conclusion, the time complexity of an algorithm is a crucial factor to consider when designing efficient and
+        scalable solutions. In the case of a polygon with n vertices, the time complexity obtained is O(n^2). Therefore, it is essential
+        to carefully optimize and streamline the algorithm to ensure that it performs efficiently, especially for large
+        and complex polygons. By understanding the time complexity of an algorithm, we can make informed decisions about
+        its design, implementation, and potential limitations, ultimately leading to more effective and optimized
+        solutions.
+
+
+
+
+    </p>
+    </p>
+    <p>
+        <br>
+        <br>
+        <br>
+        <br>
+        <center><b><a href="http://127.0.0.1:5500/html/index.html">**Link to the Doxygen documentation**</a></b></center>
+        <center><p>This link will take you to the doxygen documentation of the above implemented code</p></center>
+        <br>
+        <br>
+        <br>
+        <br>
+        <center><p>Authors: Suraj Nair ID: 2020A7PS0051H</p></center>
+        <center><p>       : Rahul Jauhari ID: 2020A7PS0106H</p></center>
+        <br>
+        <br>
+        <br>
+        <br>
+</body>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Convex Decomposition of a Polygon</title>
+    <style>
+      /* Define styles for the report */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #FDF5E6;
+        background: linear-gradient( #FDF5E6, beige);
+        
+      }
+
+      h1 {
+        text-align: center;
+        color: #008080;
+      }
+
+      h2 {
+        color: #2e8b57;
+      }
+
+      p {
+        margin-bottom: 10px;
+        color: #555;
+      }
+
+      table {
+        border-collapse: collapse;
+        margin: auto;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        padding: 5px;
+      }
+
+      ul {
+        list-style-type: square;
+      }
+
+      a {
+        color: #2e8b57;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+</head>
+
+<body>
+    <h1>Notch</h1>
+    <p>
+        <b><u>Code</u></b>
+        <br>bool notch(const Point &p1, const Point &p2, const Point &p3)
+        <br>{
+            <br>if (angle(p1, p2, p3) ==false)
+            <br>{
+        <br>return true;
+        <br>}
+        <br>return false;
+        <br>}
+    </p>
+    <p>
+        <b><u>Explanation</u></b>
+    <p>In this code, we are determining whether three points form a notch or not. We do this by finding the angle formed between the three points, and then returning true if the angle is less than 0, or false if the angle is greater than or equal to 0.</p>
+    </p>
+</body>
+
+</html>

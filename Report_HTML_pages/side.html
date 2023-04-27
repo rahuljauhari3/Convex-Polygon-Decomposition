@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <style>
+      /* Define styles for the report */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #FDF5E6;
+        background: linear-gradient( #FDF5E6, beige);
+      }
+
+      h1 {
+        text-align: center;
+        color: #008080;
+      }
+
+      h2 {
+        color: #2e8b57;
+      }
+
+      p {
+        margin-bottom: 10px;
+        color: #555;
+      }
+
+      table {
+        border-collapse: collapse;
+        margin: auto;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        padding: 5px;
+      }
+
+      ul {
+        list-style-type: square;
+      }
+
+      a {
+        color: #2e8b57;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+</head>
+
+<body>
+    <h1>Side</h1>
+    <p>
+        <b><u>Code</u></b>
+        <br>int side(const Point &p1, const Point &p2, const Point &p3)
+        <br>{
+            <br>float val = (p2.y - p1.y) * (p3.x - p2.x) - (p2.x - p1.x) * (p3.y - p2.y);
+    <br>if (val >= 0)
+    <br>return 0;
+    <br>else
+    <br>return -1;
+    <br>}
+    </p>
+    <p>
+        <b><u>Explanation</u></b>
+    <p>This code is used to determine the orientation of three points, p1, p2, and p3. The function returns 0 if the points are in a clockwise orientation and -1 if they are in a counter-clockwise orientation. It does this by calculating the cross product of the two vectors that span the points.</p>
+    </p>
+</body>
+
+</html>
