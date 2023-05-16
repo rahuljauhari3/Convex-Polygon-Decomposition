@@ -1,4 +1,4 @@
-# Convex-Polygon-Decomposition
+# Convex Polygon Decomposition
 
 This project is an implimentation of the following research paper
 ```
