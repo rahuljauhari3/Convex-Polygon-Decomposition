@@ -6,6 +6,83 @@ This project is an implimentation of the following research paper
 convex polygons. European Journal of Operational Research, 121(2), 330-342.
 https://doi.org/10.1016/S0377-2217(99)00033-8
 ```
+To run the code first run generate_points.py file with the following prompt
+```
+python generate_points.py 15 #here 15 represend the total number of vertices or nodes of the polygon.
+```
+this will create an input.txt file with the following content 
+For Ex:
+```
+15
+303 303
+305 384
+363 543
+249 624
+157 919
+410 700
+156 981
+508 946
+679 767
+901 989
+832 809
+772 352
+827 219
+748 309
+613 17
+```
+Followed by run
+```
+g++ Decompose.cpp 
+```
+```
+./a.out
+```
+This will generate output.txt containing 
+Ex:
+```
+303 303
+305 384
+363 543
+
+363 543
+249 624
+157 919
+410 700
+
+410 700
+156 981
+508 946
+679 767
+
+679 767
+901 989
+832 809
+
+679 767
+832 809
+772 352
+
+772 352
+827 219
+748 309
+
+748 309
+613 17
+303 303
+363 543
+410 700
+679 767
+
+748 309
+679 767
+772 352
+```
+Decomposed polygons.
+
+To visualize these decomposition run 
+```
+python 
+```
 The provided code is an implementation of a polygon partitioning algorithm based on the concept of decomposing a given non-convex polygon into smaller convex polygons. The algorithm utilizes the Doubly Connected Edge List (DCEL) data structure to represent the polygon and perform the decomposition.
 
 Here is a step-by-step explanation of the algorithm:
