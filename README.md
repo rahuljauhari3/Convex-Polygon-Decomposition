@@ -81,8 +81,10 @@ Decomposed polygons.
 
 To visualize these decomposition run 
 ```
-python 
+python Visualize decomposed polygon.py
 ```
+
+
 The provided code is an implementation of a polygon partitioning algorithm based on the concept of decomposing a given non-convex polygon into smaller convex polygons. The algorithm utilizes the Doubly Connected Edge List (DCEL) data structure to represent the polygon and perform the decomposition.
 
 Here is a step-by-step explanation of the algorithm:
